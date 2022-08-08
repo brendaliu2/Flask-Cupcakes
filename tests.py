@@ -42,6 +42,7 @@ class CupcakeViewsTestCase(TestCase):
         db.session.commit()
 
         self.cupcake = cupcake
+        self.cupcake_id = cupcake.id
 
     def tearDown(self):
         """Clean up fouled transactions."""
@@ -125,13 +126,12 @@ class CupcakeViewsTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 201)
 
-            data = resp.json.copy() #why make a copy?
-
-            self.assertEqual(data, {"cupcake": {"id": self.cupcake.id,
-                                    "flavor": "NewTestFlavor",
-                                    "size": "NewTestSize",
-                                    "rating": 10,
-                                    "image": "http://test.com/cupcake.jpg"}})
+            self.assertEqual(resp.json, {"cupcake": 
+                                    {"id": self.cupcake_id,
+                                     "flavor": "NewTestFlavor",
+                                     "size": "NewTestSize",
+                                     "rating": 10,
+                                     "image": "http://test.com/cupcake.jpg"}})
 
 
     def test_delete_cupcake(self):
@@ -142,9 +142,7 @@ class CupcakeViewsTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
 
-            data = resp.json.copy()
-
-            self.assertEqual(data, {"deleted": self.cupcake.id})
+            self.assertEqual(resp.json, {"deleted": self.cupcake.id})
 
 
 
