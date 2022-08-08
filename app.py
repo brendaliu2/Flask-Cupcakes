@@ -55,4 +55,21 @@ def post_cupcake():
 
     return (jsonify(cupcake = serialized), 201)
 
+@app.patch('/api/cupcakes/<int:cupcake_id>')
+def update_cupcake(cupcake_id):
+    """Update cupcake from request and return it
+        -all fields are optional
 
+    Returns 404 or JSON {'cupcake': {id, flavor, size, rating, image}}"""
+
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    if hasattr(cupcake,"status_code") and cupcake.status_code == 404:
+        return (jsonify({}),404)
+        
+    cupcake.flavor = request.json['flavor']
+    cupcake.size = request.json['size']
+    cupcake.rating = request.json['rating']
+    cupcake.image = request.json['image']
+    serialized = cupcake.serialize()
+
+    return (jsonify(cupcake = serialized), 201)
