@@ -25,7 +25,7 @@ class Cupcake(db.Model):
     rating = db.Column(db.Integer,
                      nullable=False)
     image = db.Column(db.Text,
-                     nullable=False,
+                     nullable=True,
                      default=IMAGE_URL)
 
 

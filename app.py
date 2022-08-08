@@ -40,10 +40,11 @@ def post_cupcake():
     flavor = request.json['flavor']
     size = request.json['size']
     rating = request.json['rating']
-    if request.json['image']:
-        image = request.json['image']
+    if not request.json.get('image'): 
+        image = None
     else:
-        image = ''
+        image = request.json['image']
+
 
     new_cupcake = Cupcake(flavor=flavor, size=size, rating=rating, image=image)
 
