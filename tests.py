@@ -49,6 +49,7 @@ class CupcakeViewsTestCase(TestCase):
         db.session.rollback()
 
     def test_list_cupcakes(self):
+        """Tests lists all cupcakes"""
         with app.test_client() as client:
             resp = client.get("/api/cupcakes")
 
@@ -69,6 +70,7 @@ class CupcakeViewsTestCase(TestCase):
             })
 
     def test_get_cupcake(self):
+        """Tests get /api/cupcakes/{self.cupcake.id} route"""
         with app.test_client() as client:
             url = f"/api/cupcakes/{self.cupcake.id}"
             resp = client.get(url)
@@ -86,6 +88,7 @@ class CupcakeViewsTestCase(TestCase):
             })
 
     def test_create_cupcake(self):
+        """Tests post /api/cupcakes"""
         with app.test_client() as client:
             url = "/api/cupcakes"
             resp = client.post(url, json=CUPCAKE_DATA_2)
@@ -108,3 +111,41 @@ class CupcakeViewsTestCase(TestCase):
             })
 
             self.assertEqual(Cupcake.query.count(), 2)
+
+
+    def test_update_cupcake(self):
+        """Tests patch "/api/cupcakes/{self.cupcake.id} route"""
+        with app.test_client() as client:
+            resp = client.patch(f"/api/cupcakes/{self.cupcake.id}",
+                        json={"id": self.cupcake.id,
+                        "flavor": "NewTestFlavor",
+                        "size": "NewTestSize",
+                        "rating": 10,
+                        "image": "http://test.com/cupcake.jpg"})
+
+            self.assertEqual(resp.status_code, 201)
+
+            data = resp.json.copy() #why make a copy?
+
+            self.assertEqual(data, {"cupcake": {"id": self.cupcake.id,
+                                    "flavor": "NewTestFlavor",
+                                    "size": "NewTestSize",
+                                    "rating": 10,
+                                    "image": "http://test.com/cupcake.jpg"}})
+
+
+    def test_delete_cupcake(self):
+        """Tests delete "/api/cupcakes/{self.cupcake.id}"""
+        with app.test_client() as client:
+            resp = client.delete(f"/api/cupcakes/{self.cupcake.id}")
+
+
+            self.assertEqual(resp.status_code, 200)
+
+            data = resp.json.copy()
+
+            self.assertEqual(data, {"deleted": self.cupcake.id})
+
+
+
+
