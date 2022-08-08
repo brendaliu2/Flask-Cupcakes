@@ -40,7 +40,7 @@ def post_cupcake():
     flavor = request.json['flavor']
     size = request.json['size']
     rating = request.json['rating']
-    if not request.json.get('image'): 
+    if not request.json.get('image'):
         image = None
     else:
         image = request.json['image']
@@ -65,7 +65,7 @@ def update_cupcake(cupcake_id):
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     if hasattr(cupcake,"status_code") and cupcake.status_code == 404:
         return (jsonify({}),404)
-        
+
     cupcake.flavor = request.json['flavor']
     cupcake.size = request.json['size']
     cupcake.rating = request.json['rating']
@@ -73,3 +73,19 @@ def update_cupcake(cupcake_id):
     serialized = cupcake.serialize()
 
     return (jsonify(cupcake = serialized), 201)
+
+
+@app.delete('/api/cupcakes/<int:cupcake_id>')
+def delete_cupcake(cupcake_id):
+    """Delete cupcake from request
+
+    Returns 404 or JSON {'deleted': cupcake_id}"""
+
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    if hasattr(cupcake,"status_code") and cupcake.status_code == 404:
+        return (jsonify({}),404)
+
+    db.session.delete(cupcake)
+    db.session.commit()
+
+    return (jsonify("deleted", cupcake_id), 200)
