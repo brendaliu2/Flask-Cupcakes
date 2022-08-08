@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cupcakes</title>
+</head>
+<body>
+
+  <ul>
+
+
+  </ul>
+
+  <form action="/api/cupcakes" method="POST">
+
+    <div>
+      <label for="flavor">Flavor</label>
+      <input type="text" id="flavor" name="flavor" required>
+    </div>
+    <div>
+      <label for="size">Size</label>
+      <input type="text" id="size" name="size" required>
+    </div>
+    <div>
+      <label for="rating">Rating</label>
+      <input type="Number" id="rating" name="rating" required>
+    </div>
+    <div>
+      <label for="image">Image URL</label>
+      <input type="text" id="image" name="image">
+    </div>
+    <div>
+      <input type="submit" value="Add Cupcake">
+    </div>
+
+
+  </form>
+  
+</body>
+</html>
