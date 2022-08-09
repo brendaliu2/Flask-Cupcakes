@@ -1,20 +1,25 @@
 "use strict";
 
-
-// TODO: OOP make it a class
-
 const $LIST = $('ul');
 
+//TODO: ADD DOCSTRINGS
+//TODO: OOP Refactor
+
+/** */
 async function getCupcakesJson () {
   let response = await axios.get('api/cupcakes');
   console.info("get_cupcakes_json");
   return response.data.cupcakes;
 }
 
+/** */
 async function appendToCupcakeList(){
   $LIST.empty();
   const cupcakes = await getCupcakesJson();
   for(let cupcake of cupcakes){
+    
+    //FIXME: refactor the rest of this function into a helper function that 
+    //accepts a single cupcake and appends it to the DOM
     const flavor = cupcake.flavor;
     const size = cupcake.size;
     const rating = cupcake.rating;
@@ -28,10 +33,10 @@ async function appendToCupcakeList(){
     $image.attr('width', "50px");
     $image.appendTo($cupcake);
     $cupcake.appendTo($LIST);
-
   }
 }
 
+/** */
 function getFormData () {
   return {
     'flavor': $('#flavor').val(),
@@ -41,6 +46,7 @@ function getFormData () {
   }
 }
 
+/** */
 function clearForm() {
   $('#flavor').val('');
   $('#size').val('');
@@ -48,25 +54,23 @@ function clearForm() {
   $('#image').val('');
 }
 
+/** */
 async function addCupcake () {
   const newCupcake = getFormData();
   clearForm();
   const resp = await axios.post('api/cupcakes', newCupcake);
-  console.log(resp)
 }
 
-
-function submitHandler(e) {
+/** */
+async function submitHandler(e) {
   e.preventDefault(); 
-  addCupcake();
+  await addCupcake();
+  
+  // FIXME: make this the single cupcake append function 
   appendToCupcakeList();
 }
 
-
 $('form').on('submit',submitHandler);
-
-
-
 appendToCupcakeList();
 
 
