@@ -1,6 +1,6 @@
 "use strict";
 
-const $LIST = $('ul');
+const $CUPCAKES_ROW = $('#cupcakes-row');
 
 //TODO: ADD DOCSTRINGS
 //TODO: OOP Refactor
@@ -14,7 +14,7 @@ async function getCupcakesJson () {
 
 /** */
 async function appendToCupcakeList(){
-  $LIST.empty();
+  $CUPCAKES_ROW.empty();
   const cupcakes = await getCupcakesJson();
   for(let cupcake of cupcakes){
     
@@ -25,14 +25,28 @@ async function appendToCupcakeList(){
     const rating = cupcake.rating;
     const image = cupcake.image;
 
-    const $cupcake = $("<li>");
-    const cupcakeString = `Flavor is ${flavor}, size is ${size}, rating is ${rating}`;
-    const $image = $("<img>");
-    $image.attr('src', image);
-    $cupcake.text(cupcakeString);
-    $image.attr('width', "50px");
-    $image.prependTo($cupcake);
-    $cupcake.appendTo($LIST);
+    //Create DOM elements
+    const $cupcakeContainer = $('<div>').addClass('col-3')
+    const $cupcakeDescList = $('<ul>').addClass('list-group')
+    $('<li>')
+      .addClass('list-group-item my-1')
+      .appendTo($cupcakeDescList)
+      .text(flavor);
+    $('<li>')
+      .addClass('list-group-item my-1')
+      .appendTo($cupcakeDescList)
+      .text(size);
+    $('<li>')
+      .addClass('list-group-item my-1')
+      .appendTo($cupcakeDescList)
+      .text(rating);
+      
+    const $image = $("<img>").addClass('img-fluid').attr('src', image);;
+
+    //Add elements to DOM
+    $image.prependTo($cupcakeContainer);
+    $cupcakeDescList.appendTo($cupcakeContainer);
+    $cupcakeContainer.appendTo($CUPCAKES_ROW)
   }
 }
 
