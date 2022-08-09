@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.css"
+    />
+    <title>Cupcakes</title>
+    <script src="https://unpkg.com/jquery"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cupcakes</title>
-  <script src= 'https://unpkg.com/jquery'></script>
+  <body class="container">
+    
 
-</head>
+    <form class="container my-3">
+      <div class="form-group">
+        <label for="flavor">Flavor</label>
+        <input type="text" class="form-control" id="flavor" name="flavor" required />
+      </div>
+      <div class="form-group my-1">
+        <label for="size">Size</label>
+        <input type="text" class="form-control" id="size" name="size" required />
+      </div>
+      <div class="form-group my-1">
+        <label for="rating">Rating</label>
+        <input type="Number" class="form-control" id="rating" name="rating" required />
+      </div>
+      <div class="form-group my-1">
+        <label for="image">Image URL</label>
+        <input type="text" class="form-control" id="image" name="image" />
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary my-2" value="Add Cupcake" />
+      </div>
+    </form>
 
-<body>
+    <ul></ul>
 
-  <ul>
-
-
-  </ul>
-
-  <form>
-
-    <div>
-      <label for="flavor">Flavor</label>
-      <input type="text" id="flavor" name="flavor" required>
-    </div>
-    <div>
-      <label for="size">Size</label>
-      <input type="text" id="size" name="size" required>
-    </div>
-    <div>
-      <label for="rating">Rating</label>
-      <input type="Number" id="rating" name="rating" required>
-    </div>
-    <div>
-      <label for="image">Image URL</label>
-      <input type="text" id="image" name="image">
-    </div>
-    <div>
-      <input type="submit" value="Add Cupcake">
-    </div>
-
-
-  </form>
-
-
-  <script src="https://unpkg.com/axios/dist/axios.js"></script>
-  <script src= '/static/app.js'></script>
-</body>
-
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="/static/app.js"></script>
+  </body>
 </html>

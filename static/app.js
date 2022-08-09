@@ -31,7 +31,7 @@ async function appendToCupcakeList(){
     $image.attr('src', image);
     $cupcake.text(cupcakeString);
     $image.attr('width', "50px");
-    $image.appendTo($cupcake);
+    $image.prependTo($cupcake);
     $cupcake.appendTo($LIST);
   }
 }
